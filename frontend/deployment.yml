@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-frontend-deployment
+  labels:
+    app: mym
+    unit: frontend
+spec:
+  selector:
+    matchLabels:
+      app: mym
+      unit: frontend
+  template:
+    metadata:
+      labels:
+        app: mym
+        unit: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: gcr.io/rosy-decker-240108/demo-frontend:1
+          ports:
+            - name: http
+              containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-frontend-service
+spec:
+  type: NodePort
+  selector:
+    app: mym
+    unit: frontend
+  ports:
+    - port: 80
+      targetPort: 8000
