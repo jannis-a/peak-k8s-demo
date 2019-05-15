@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-frontend-deployment
+  name: frontend-deployment
   labels:
     app: mym
     unit: frontend
@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-frontend-service
+  name: frontend-service
 spec:
   type: NodePort
   selector:

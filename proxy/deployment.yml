@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-proxy-deployment
+  name: proxy-deployment
   labels:
     app: mym
     unit: proxy
@@ -22,6 +22,16 @@ spec:
           ports:
             - name: http
               containerPort: 8080
+          readinessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 20
           volumeMounts:
             - name: config-volume
               readOnly: true
@@ -29,14 +39,12 @@ spec:
       volumes:
         - name: config-volume
           configMap:
-            # Provide the name of the ConfigMap containing the files you want
-            # to add to the container
             name: nuster-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-proxy-service
+  name: proxy-service
 spec:
   type: NodePort
   selector:

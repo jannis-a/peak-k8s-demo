@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-api-deployment
+  name: api-deployment
   labels:
     app: mym
     unit: api
@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: demo-api-service
+  name: api-service
 spec:
   type: NodePort
   selector:

@@ -1,8 +1,10 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: demo-ingress
+  name: ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "ingress"
 spec:
   backend:
-    serviceName: demo-proxy-service
+    serviceName: proxy-service
     servicePort: 80
